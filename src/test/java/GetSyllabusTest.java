@@ -26,20 +26,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GetSyllabusTest {
   private Logger logger = LoggerFactory.getLogger(GetSyllabusTest.class);
-
-
   static {
-    System.setProperty("logback.xml.configurationFile", "src/logback.xml.xml");
+    System.setProperty("logback.configurationFile", "src/logback.xml");
   }
 
   @BeforeAll
   public void setUp() {
     Configuration.browser = "chrome";
     Configuration.startMaximized = true;
+
   }
 
   @Test
-  public void loginTest() {
+  public void downloadSyllabusTest() {
+    Configuration.downloadsFolder = "C:\\Users\\ÄGARE\\IdeaProjects\\SelenideTesting\\SelenideTesting\\target\\downloads";
     //open ltu.se
     try{
       open("https://ltu.se");
@@ -86,9 +86,7 @@ public class GetSyllabusTest {
     } catch (ElementNotFound e) {
       logger.error("Error clicking syllabus link");
     }
-
-    //open syllabus
-    //open("https://www.ltu.se/edu/course/I00/I0015N/I0015N-Test-av-IT-system-1.81215?kursView=kursplan&termin=V23");
+    sleep(3000);
 
     //click on the pdf file link and download the pdf file called "Kursplan antagna: Våren 2023, Läsperiod 4, Kurstillfälle 47000, 47455"
     try{
@@ -98,7 +96,7 @@ public class GetSyllabusTest {
     } catch (ElementNotFound e) {
       logger.error("Error downloading pdf file");
     }
-    sleep(3000);
+
 
   }
 }

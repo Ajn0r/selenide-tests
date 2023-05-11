@@ -35,7 +35,7 @@ public class ExamInfoTest {
   }
 
   @Test
-  public void loginTest() {
+  public void checkExamInfoTest() {
     // Code to retrieve login credentials
     File jsonFile = new File("C:\\temp\\ltu.json.txt");
     String email = null;

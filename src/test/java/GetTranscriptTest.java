@@ -20,7 +20,7 @@ public class GetTranscriptTest {
   private Logger logger = LoggerFactory.getLogger(GetTranscriptTest.class);
 
   static {
-    System.setProperty("logback.xml.configurationFile", "src/logback.xml.xml");
+    System.setProperty("logback.xml.configurationFile", "src/logback.xml");
   }
 
   @BeforeAll
@@ -30,7 +30,7 @@ public class GetTranscriptTest {
   }
 
   @Test
-  public void loginTest(){
+  public void downloadTranscriptTest(){
       // Code to retrieve login credentials
       File jsonFile = new File("C:\\temp\\ltu.json.txt");
       String email = null;
@@ -46,7 +46,7 @@ public class GetTranscriptTest {
       } catch (IOException e) {
         logger.error("Error reading credentials from file");
       }
-
+      Configuration.downloadsFolder = "C:\\Users\\ÄGARE\\IdeaProjects\\SelenideTesting\\SelenideTesting\\target\\downloads";
       //test to log in to ltu.com with valid credentials and check that the login was successful, first accept cookies and then login
       open("https://www.ltu.se");
       try {
@@ -133,6 +133,7 @@ public class GetTranscriptTest {
         logger.error("Link not found");
       }
       sleep(3000);
+
       //click the menu btn //button[contains(@aria-label, 'Menu')]
       try {
         var menuBtn = $(byXpath("//button[contains(@aria-label, 'Meny')]"));
@@ -142,6 +143,7 @@ public class GetTranscriptTest {
         logger.error("Menu button not found");
       }
       sleep(1000);
+
       //click this link //a[@href='/student/app/studentwebb/intyg']
       try {
         var link = $(byXpath("//a[@href='/student/app/studentwebb/intyg']"));
@@ -151,6 +153,7 @@ public class GetTranscriptTest {
         logger.error("Link not found");
       }
       sleep(2000);
+
       //click the create btn //button[@title='Create']
       try {
         var createBtn = $(byXpath("//button[@title='Skapa intyg']"));
@@ -160,10 +163,10 @@ public class GetTranscriptTest {
         logger.error("Create button not found");
       }
       sleep(2000);
+
       try {
         // Find the dropdown element
         SelenideElement dropdown = $("#intygstyp");
-
         // Select the option with value '1: Object'
         dropdown.selectOptionByValue("1: Object");
       } catch (Exception e) {
@@ -178,6 +181,16 @@ public class GetTranscriptTest {
       } catch (Exception e) {
         logger.error("Button not found");
       }
+      sleep(2000);
 
+      //click the link for the transcript
+      try {
+        var link = $(byXpath("//html/body/ladok-root/div/main/div/ladok-intyg/ladok-listning-av-skapade-intyg/div/div/ladok-accordion/div/ladok-list-kort[1]/div/div[1]/div/div[1]/a"));
+        link.click();
+        logger.info("Link found");
+      } catch (Exception e) {
+        logger.error("Link not found");
+      }
+      sleep(8000);
     }
 }
