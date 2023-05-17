@@ -1,28 +1,14 @@
-
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.ex.ElementNotFound;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.jupiter.api.BeforeAll;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
-import org.openqa.selenium.Keys;
+import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GetSyllabusTest {
   private Logger logger = LoggerFactory.getLogger(GetSyllabusTest.class);
@@ -31,7 +17,7 @@ public class GetSyllabusTest {
   }
 
   @BeforeAll
-  public void setUp() {
+  public static void setUp() {
     Configuration.browser = "chrome";
     Configuration.startMaximized = true;
 
@@ -71,7 +57,7 @@ public class GetSyllabusTest {
     try{
       var element = $(byXpath("//input[@id='cludo-search-bar-input']"));
       element.sendKeys("I0015N");
-      element.sendKeys(Keys.ENTER); // press the enter key instead of clicking the search button
+      element.pressEnter();
       logger.info("Search for course I0015N");
     } catch (ElementNotFound e) {
       logger.error("Error searching for course I0015N");
@@ -86,7 +72,7 @@ public class GetSyllabusTest {
     } catch (ElementNotFound e) {
       logger.error("Error clicking syllabus link");
     }
-    sleep(3000);
+    sleep(4000);
 
     //click on the pdf file link and download the pdf file called "Kursplan antagna: Våren 2023, Läsperiod 4, Kurstillfälle 47000, 47455"
     try{
@@ -96,7 +82,6 @@ public class GetSyllabusTest {
     } catch (ElementNotFound e) {
       logger.error("Error downloading pdf file");
     }
-
 
   }
 }

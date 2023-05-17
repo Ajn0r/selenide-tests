@@ -3,17 +3,15 @@ import com.codeborne.selenide.SelenideElement;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.FindBy;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
+
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GetTranscriptTest {
@@ -24,7 +22,7 @@ public class GetTranscriptTest {
   }
 
   @BeforeAll
-  public void setUp() {
+  public static void setUp() {
     Configuration.browser = "chrome";
     Configuration.startMaximized = true;
   }
@@ -67,10 +65,10 @@ public class GetTranscriptTest {
       // click the button with the text "Logga in"
       try {
         $(byText("Logga in")).click();
-        $(By.id("username")).sendKeys(email);
-        $(By.id("password")).sendKeys(password);
+        $(byId("username")).sendKeys(email);
+        $(byId("password")).sendKeys(password);
         // target a btn by name=submit and click it to login
-        $(By.name("submit")).click();
+        $(byName("submit")).click();
       } catch (Exception e) {
         logger.error("Login failed");
       }
@@ -175,7 +173,7 @@ public class GetTranscriptTest {
 
       try {
         //click the "Skapa" btn
-        var button = $(By.cssSelector("ladok-root button[class$='me-lg-3']"));
+        var button = $(byCssSelector("ladok-root button[class$='me-lg-3']"));
         button.click();
         logger.info("Button found");
       } catch (Exception e) {

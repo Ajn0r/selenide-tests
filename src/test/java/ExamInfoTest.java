@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import java.io.File;
@@ -15,8 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.byXpath;
+import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -72,10 +71,10 @@ public class ExamInfoTest {
     // click the button with the text "Logga in"
     try {
       $(byText("Logga in")).click();
-      $(By.id("username")).sendKeys(email);
-      $(By.id("password")).sendKeys(password);
+      $(byId("username")).sendKeys(email);
+      $(byId("password")).sendKeys(password);
       // target a btn by name=submit and click it to login
-      $(By.name("submit")).click();
+      $(byName("submit")).click();
     } catch (Exception e) {
       logger.error("Login failed");
     }
